@@ -206,4 +206,6 @@ function show() {
 
 
 
+console.log("bitch ass")
+
 // var be
