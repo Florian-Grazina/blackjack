@@ -1,3 +1,11 @@
+class Player{
+    constructor(id, chips){
+        this.id = id;
+        this.total;
+        this.chips = chips;
+    }
+}
+
 //  Pick up buttons in HTML
 
 var btnBet = document.getElementById("bet");
@@ -51,34 +59,29 @@ document.onkeydown = function(e){
 
 // Setup game
 
-var bet;
-var wait = 500;
+let player1 = new Player(1, 100);
 
+var bet;
 var chips = 100;
+var totalDealer = 0;
 var totalPlayer = 0;
 var playerAce = 0;
+var wait = 150;
 var playerBj = false;
-var playerCards = ""
-
-var totalDealer = 0;
-var dealerAce = 0;
 var dealerBj = false;
-var dealerCards = ""
-
 show();
 
 // Setup deck of cards
-const color = ["Hearts","Spades","Diamond","Clubs"]
 const cardId = [1,2,3,4,5,6,7,8,9,10,11,12,13];
 const cardValue = [11,2,3,4,5,6,7,8,9,10,10,10,10];
 const cardName = ["Ace","Two", "Tree", "Four", "Five", "Six",
 "Seven","Eight","Nine","Ten","Jack","Queen","King"];
 
-var cards = cardId.concat(cardId).concat(cardId).concat(cardId);
-var deck = cards.concat(cards).concat(cards).concat(cards)
+var deck = cardId.concat(cardId).concat(cardId).concat(cardId);
 
 // Blackjack
 function betCheck() {
+    console.log("");
     bet = document.getElementById("betAmount").valueAsNumber;
 
     if (bet === 0){
@@ -96,16 +99,10 @@ function betCheck() {
 }
 
 function startGame(){
-    show()
-    document.getElementById("playerCards").innerHTML = "";
-    document.getElementById("dealerCards").innerHTML = "";
     btnBet.disabled = true;
     betAmount.disabled = true;
-    setTimeout(() =>drawCardPlayer(),wait);
-    setTimeout(() =>drawCardDealer(),wait*2);
-    setTimeout(() =>drawCardPlayer(),wait*3);
-    console.log(totalPlayer);
-    console.log(totalDealer);
+    drawCardsDealer(1);
+    drawCardsPlayer(1);
     chips -= bet;
     btnStand.disabled = false;
     btnHit.disabled = false;
@@ -114,61 +111,40 @@ function startGame(){
     if (totalPlayer == 21){
         playerBj = true;
         setTimeout(() => window.alert("Blackjack !"),wait);
-        btnHit.disabled = true;
-        btnDouble.disabled = true;
+        stand();
     }   
-}
-
-// Draw player
-function drawCardPlayer() {
-    let i = Math.floor(Math.random()*deck.length);
-    let x = deck[i]-1;
-    totalPlayer += cardValue[x];
-    deck.splice (i,1);
-    if (cardId[x] == 1){
-        playerAce++;
-    }
-
-    if (totalPlayer > 21 && playerAce > 0){
-    totalPlayer -= 10;
-    playerAce--;
-    }
-
-    i = Math.floor(Math.random()*4); // Color random
-
-    image = document.createElement("img"); // Cards show
-    image.src = "./Small/"+color[i]+" "+cardId[x]+".png";
-    document.getElementById("playerCards").appendChild(image);
-
     show();
 }
 
-// Draw dealer
-function drawCardDealer() {
-    let i = Math.floor(Math.random()*deck.length);
-    let x = deck[i]-1;
-    totalDealer += cardValue[x];
-    deck.splice (i,1);
-    if (cardId[x] == 1){
-        dealerAce++;
+function drawCardsDealer(a) {
+    for (let x = 0; x < a; x++ ){
+        let i = Math.floor(Math.random()*deck.length);
+        let x = deck[i]-1;
+        totalDealer += cardValue[x];
+        deck.splice (i,1);
     }
+}
 
-    if (totalDealer > 21 && dealerAce > 0){
-    totalDealer -= 10;
-    dealerAce--;
+function drawCardsPlayer(a) {
+    for (let x = 0; x < a; x++ ){
+        let i = Math.floor(Math.random()*deck.length);
+        let x = deck[i]-1;
+        totalPlayer += cardValue[x];
+        deck.splice (i,1);
+
+        if (cardId[x] == 1){
+            playerAce++;
+        }
+
+        if (totalPlayer > 21 && playerAce > 0){
+        totalPlayer -= 10;
+        playerAce--;
+        }
     }
-
-    i = Math.floor(Math.random()*4); // Color random
-
-    image = document.createElement("img"); // Cards show
-    image.src = "./Small/"+color[i]+" "+cardId[x]+".png";
-    document.getElementById("dealerCards").appendChild(image);
-
-    show();
 }
 
 function hit() {
-    drawCardPlayer();
+    drawCardsPlayer(1);
     show();
     btnDouble.disabled = true;
     if (totalPlayer > 21){
@@ -178,8 +154,9 @@ function hit() {
 }
 
 function stand(){
+
     while (totalDealer < 17){
-        drawCardDealer();
+        drawCardsDealer(1);
     }
 
     if (playerBj == true && dealerBj === false){
@@ -221,8 +198,8 @@ function reset(){
     playerAce =0;
     playerBj = false;
     dealerBj = false;
-    if (deck.length < cards.length*2){
-        deck = cards.concat(cards).concat(cards).concat(cards)
+    if (deck.length < 26){
+        deck = cardId.concat(cardId).concat(cardId).concat(cardId);
         setTimeout(() => window.alert("Reshuffling..."),wait);
     }
 }
@@ -235,7 +212,11 @@ function show() {
     }
     document.getElementById("chips").innerHTML = chips;
     document.getElementById("totalDealer").innerHTML = totalDealer;
-    document.getElementById("betAmount").innerHTML = bet;
+    document.getElementById("betAmount").innetHTML = bet;
 }
 
 
+
+console.log("bitch ass")
+
+// var be
