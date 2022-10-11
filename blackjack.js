@@ -49,22 +49,45 @@ document.onkeydown = function(e){
     }
 }
 
+// Draw cards
+
+function drawCards(){
+image = document.createElement("img"); // Cards show
+image.src = "./Small/Back Grey 1.png";
+document.getElementById("dealerCards").appendChild(image);
+
+image = document.createElement("img"); // Cards show
+image.src = "./Small/Back Grey 1.png";
+document.getElementById("playerCards").appendChild(image);
+}
+
 // Setup game
+
+function sleep(){
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve('resolved');
+        },wait);
+    });
+}
 
 var bet;
 var wait = 500;
+var result = "..."
+var action = "Place your bet!"
 
 var chips = 100;
 var totalPlayer = 0;
 var playerAce = 0;
 var playerBj = false;
-var playerCards = ""
+// var playerCards = ""
 
 var totalDealer = 0;
 var dealerAce = 0;
 var dealerBj = false;
-var dealerCards = ""
+// var dealerCards = ""
 
+drawCards();
 show();
 
 // Setup deck of cards
@@ -95,17 +118,25 @@ function betCheck() {
     }
 }
 
-function startGame(){
-    show()
-    document.getElementById("playerCards").innerHTML = "";
-    document.getElementById("dealerCards").innerHTML = "";
+// Start the game
+async function startGame(){
     btnBet.disabled = true;
     betAmount.disabled = true;
-    setTimeout(() =>drawCardPlayer(),wait);
-    setTimeout(() =>drawCardDealer(),wait*2);
-    setTimeout(() =>drawCardPlayer(),wait*3);
-    console.log(totalPlayer);
-    console.log(totalDealer);
+    action = "No more bets";
+    result = "...";
+    show();
+    document.getElementById("dealerCards").innerHTML = "";
+    document.getElementById("playerCards").innerHTML = "";
+    drawCards();
+    await sleep();
+    document.getElementById("playerCards").innerHTML = "";
+    drawCardPlayer();
+    await sleep();
+    document.getElementById("dealerCards").innerHTML = "";
+    drawCardDealer();
+    await sleep();
+    drawCardPlayer();
+    await sleep();
     chips -= bet;
     btnStand.disabled = false;
     btnHit.disabled = false;
@@ -113,9 +144,10 @@ function startGame(){
 
     if (totalPlayer == 21){
         playerBj = true;
-        setTimeout(() => window.alert("Blackjack !"),wait);
         btnHit.disabled = true;
         btnDouble.disabled = true;
+        result = "Blackjack!"
+        show();
     }   
 }
 
@@ -168,33 +200,37 @@ function drawCardDealer() {
 }
 
 function hit() {
+    action = "Hit"
     drawCardPlayer();
     show();
     btnDouble.disabled = true;
     if (totalPlayer > 21){
-        setTimeout(() => window.alert ("Too many"),wait);
+        result = "Too many";
+        show();
         reset();
     } 
 }
 
-function stand(){
+async function stand(){
+    action = "Stand"
     while (totalDealer < 17){
         drawCardDealer();
+        await sleep();
     }
 
     if (playerBj == true && dealerBj === false){
         chips += (bet*2.5);
-        setTimeout(() => window.alert("You won"),wait) 
+        result = "You won!";
 
     } else if (totalDealer > 21 || totalDealer < totalPlayer){
         chips += (bet*2);
-        setTimeout(() => window.alert("You won"),wait);
+        result = "You won!";
 
     } else if (totalDealer > totalPlayer){
-        setTimeout(() =>window.alert("You lost"),wait);
+        result = "You lost";
 
     } else {
-        setTimeout(() =>window.alert("Draw"),wait);
+        result = "Draw";
         chips += bet;
     }
     show();
@@ -202,12 +238,38 @@ function stand(){
 }
 
 function double(){
-    chips -= bet;
-    bet = bet*2;
-    console.log(bet);
-    hit();
-    btnHit.disabled = true;
-    btnDouble.disabled = true;
+    if (chips < bet){
+        window.alert("You don't have enough chips!")
+    }
+    else{
+        action = "Double";
+        chips -= bet;
+        bet = bet*2;
+        drawCardPlayer();
+        show();
+        btnDouble.disabled = true;
+
+        if (totalPlayer > 21){
+            result = "Too many"
+            reset();
+        }
+
+        btnHit.disabled = true;
+        btnDouble.disabled = true;
+    }
+}
+
+function show() {
+    if (playerAce > 0){
+        document.getElementById("totalPlayer").innerHTML = totalPlayer + " (Soft)";
+    } else {
+        document.getElementById("totalPlayer").innerHTML = totalPlayer;
+    }
+    document.getElementById("chips").innerHTML = chips;
+    document.getElementById("totalDealer").innerHTML = totalDealer;
+    document.getElementById("betAmount").innerHTML = bet;
+    document.getElementById("result").innerHTML = result;
+    document.getElementById("action").innerHTML = action;
 }
 
 function reset(){
@@ -222,20 +284,7 @@ function reset(){
     playerBj = false;
     dealerBj = false;
     if (deck.length < cards.length*2){
-        deck = cards.concat(cards).concat(cards).concat(cards)
-        setTimeout(() => window.alert("Reshuffling..."),wait);
+        deck = cards.concat(cards).concat(cards).concat(cards);
+        action = 'Reshuffling';
     }
 }
-
-function show() {
-    if (playerAce > 0){
-        document.getElementById("totalPlayer").innerHTML = totalPlayer + " (Soft)";
-    } else {
-        document.getElementById("totalPlayer").innerHTML = totalPlayer;
-    }
-    document.getElementById("chips").innerHTML = chips;
-    document.getElementById("totalDealer").innerHTML = totalDealer;
-    document.getElementById("betAmount").innerHTML = bet;
-}
-
-
