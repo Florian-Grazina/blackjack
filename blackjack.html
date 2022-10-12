@@ -2,39 +2,50 @@
 <html>
 <head>
 
-<div id="dealers"> <p>Dealer</p>
-    <div id="totalDealer"> ... </div>
+<div>
+    <img id="dealer">
+    <p id="totalDealer"></p>
 </div>
 
-<div id="dealerCards">
-</div>
+<div id="dealerCards"></div>
 
-<div><p>----</p>
+<div>
     <p id="action"></p>
     <p id="result"></p>
 </div>
 
-<div id="player"> <p>Player</p>
-    <div id="totalPlayer"> ... </div>
+<div id="player"> 
+    <p id="totalPlayer"></p>
 </div>
 
 <div id="playerCards">
 </div>
 
-<div> <p>Chips : </p> <p id="chips"></p> </div>
-
 <div>
-    <input type="number" id="betAmount" value="0">
-    <button type="button" id="bet" value="false"> Bet </button>
+    <p>Chips : </p>
+    <p id="chips"></p>
+</div>
+
+<div id="btnChips">
+    <button type="button" value="10"> 10 </button>
+    <button type="button" value="20"> 20 </button>
+    <button type="button" value="50"> 50 </button>
+    <button type="button" value="100"> 100 </button>
 </div>
 
 <div>
-    <button type="button" id="btnHit" value="false"> Hit </button>
-    <button type="button" id="btnStand" value="false"> Stand </button>
+    <p>Bet :</p>
+    <p id="betAmount"></p>
+    <button type="button" id="bet"> Bet </button>
 </div>
 
 <div>
-    <button type="button" id="btnDouble" value="false"> Double </button>
+    <button type="button" id="btnHit"> Hit </button>
+    <button type="button" id="btnStand"> Stand </button>
+</div>
+
+<div>
+    <button type="button" id="btnDouble"> Double </button>
 </div>
 
 

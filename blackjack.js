@@ -1,4 +1,6 @@
 //  Pick up buttons in HTML
+var btnChips = document.getElementById("btnChips");
+btnChips.addEventListener ("click", betChipsClick);
 
 var btnBet = document.getElementById("bet");
 btnBet.addEventListener ("click", betCheck);
@@ -49,20 +51,8 @@ document.onkeydown = function(e){
     }
 }
 
-// Draw cards
-
-function drawCards(){
-image = document.createElement("img"); // Cards show
-image.src = "./Small/Back Grey 1.png";
-document.getElementById("dealerCards").appendChild(image);
-
-image = document.createElement("img"); // Cards show
-image.src = "./Small/Back Grey 1.png";
-document.getElementById("playerCards").appendChild(image);
-}
 
 // Setup game
-
 function sleep(){
     return new Promise(resolve => {
         setTimeout(() => {
@@ -71,8 +61,9 @@ function sleep(){
     });
 }
 
-var bet;
-var wait = 500;
+var betChips = 0;
+var bet = 0;
+var wait = 400;
 var result = "..."
 var action = "Place your bet!"
 
@@ -87,6 +78,7 @@ var dealerAce = 0;
 var dealerBj = false;
 // var dealerCards = ""
 
+dealer("Idle");
 drawCards();
 show();
 
@@ -100,47 +92,57 @@ const cardName = ["Ace","Two", "Tree", "Four", "Five", "Six",
 var cards = cardId.concat(cardId).concat(cardId).concat(cardId);
 var deck = cards.concat(cards).concat(cards).concat(cards)
 
+// Click bet
+function betChipsClick(e){
+    betChips = Number(e.target.value);
+
+    if (isNaN(betChips)){
+        return;
+    }
+
+    bet += betChips;
+    show();
+}
+
+
 // Blackjack
 function betCheck() {
-    bet = document.getElementById("betAmount").valueAsNumber;
 
     if (bet === 0){
         window.alert("Please put a bet amount");
     }
     else if (bet > chips){
         window.alert("You don't have enough chips!");
-    }
-    else if (bet < 0){
-        window.alert("Please put a correct amount");
+        bet = 0;
+        show();
     }
     else{
         startGame();
     }
 }
 
+
 // Start the game
 async function startGame(){
     btnBet.disabled = true;
     betAmount.disabled = true;
-    action = "No more bets";
-    result = "...";
-    show();
-    document.getElementById("dealerCards").innerHTML = "";
-    document.getElementById("playerCards").innerHTML = "";
-    drawCards();
-    await sleep();
-    document.getElementById("playerCards").innerHTML = "";
-    drawCardPlayer();
-    await sleep();
-    document.getElementById("dealerCards").innerHTML = "";
-    drawCardDealer();
-    await sleep();
-    drawCardPlayer();
-    await sleep();
-    chips -= bet;
     btnStand.disabled = false;
     btnHit.disabled = false;
     btnDouble.disabled = false;
+
+    action = "No more bets";
+    result = "...";
+    chips -= bet;
+
+    show();
+
+    drawCards();
+
+    document.getElementById("playerCards").innerHTML = "";
+    await drawCardPlayer();
+    document.getElementById("dealerCards").innerHTML = "";
+    await drawCardDealer();
+    await drawCardPlayer();
 
     if (totalPlayer == 21){
         playerBj = true;
@@ -151,8 +153,9 @@ async function startGame(){
     }   
 }
 
+
 // Draw player
-function drawCardPlayer() {
+async function drawCardPlayer() {
     let i = Math.floor(Math.random()*deck.length);
     let x = deck[i]-1;
     totalPlayer += cardValue[x];
@@ -173,10 +176,13 @@ function drawCardPlayer() {
     document.getElementById("playerCards").appendChild(image);
 
     show();
+    await dealerAnimation();
 }
 
+
 // Draw dealer
-function drawCardDealer() {
+async function drawCardDealer() {
+
     let i = Math.floor(Math.random()*deck.length);
     let x = deck[i]-1;
     totalDealer += cardValue[x];
@@ -197,12 +203,14 @@ function drawCardDealer() {
     document.getElementById("dealerCards").appendChild(image);
 
     show();
+    await dealerAnimation();
 }
+
 
 function hit() {
     action = "Hit"
     drawCardPlayer();
-    show();
+    // show();
     btnDouble.disabled = true;
     if (totalPlayer > 21){
         result = "Too many";
@@ -211,20 +219,20 @@ function hit() {
     } 
 }
 
+
 async function stand(){
     action = "Stand"
     while (totalDealer < 17){
-        drawCardDealer();
-        await sleep();
+        await drawCardDealer();
     }
 
     if (playerBj == true && dealerBj === false){
         chips += (bet*2.5);
-        result = "You won!";
+        result = "You won! : "+bet*1.5+" chips.";
 
     } else if (totalDealer > 21 || totalDealer < totalPlayer){
         chips += (bet*2);
-        result = "You won!";
+        result = "You won! : "+bet+" chips.";
 
     } else if (totalDealer > totalPlayer){
         result = "You lost";
@@ -236,6 +244,7 @@ async function stand(){
     show();
     reset();
 }
+
 
 function double(){
     if (chips < bet){
@@ -259,6 +268,7 @@ function double(){
     }
 }
 
+
 function show() {
     if (playerAce > 0){
         document.getElementById("totalPlayer").innerHTML = totalPlayer + " (Soft)";
@@ -270,7 +280,9 @@ function show() {
     document.getElementById("betAmount").innerHTML = bet;
     document.getElementById("result").innerHTML = result;
     document.getElementById("action").innerHTML = action;
+    
 }
+
 
 function reset(){
     btnBet.disabled = false;
@@ -288,3 +300,36 @@ function reset(){
         action = 'Reshuffling';
     }
 }
+
+
+// Draw cards
+function drawCards(){
+
+    document.getElementById("dealerCards").innerHTML = "";
+    image = document.createElement("img"); // Cards show
+    image.src = "./Small/Back Grey 1.png";
+    document.getElementById("dealerCards").appendChild(image);
+    
+    document.getElementById("playerCards").innerHTML = "";
+    image = document.createElement("img"); // Cards show
+    image.src = "./Small/Back Grey 1.png";
+    document.getElementById("playerCards").appendChild(image);
+}
+
+
+//Draw dealer
+function dealer(a){
+    var dealer = document.getElementById("dealer");
+    dealer.src = "./Sprites/"+a+".png";
+    document.getElementById("dealer").innerHTML = dealer;
+}
+
+async function dealerAnimation(){
+    dealer("Draw");
+    await sleep();
+    dealer("Idle");
+    await sleep();
+}
+
+// Import
+// click chips to bet
