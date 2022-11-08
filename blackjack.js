@@ -1,6 +1,11 @@
+
+
 //  Pick up buttons in HTML
 var btnChips = document.getElementById("btnChips");
 btnChips.addEventListener ("click", betChipsClick);
+
+var btnChipsReset = document.getElementById("btnReset");
+btnChipsReset.addEventListener ("click", betChipsReset);
 
 var btnBet = document.getElementById("bet");
 btnBet.addEventListener ("click", betCheck);
@@ -42,6 +47,7 @@ document.onkeydown = function(e){
             }
             break;
         case 13:
+            e.preventDefault()
             if (btnBet.disabled == false){
                 betCheck();
             } else {
@@ -53,7 +59,7 @@ document.onkeydown = function(e){
 
 
 // Setup game
-function sleep(){
+function sleep(wait){
     return new Promise(resolve => {
         setTimeout(() => {
             resolve('resolved');
@@ -62,10 +68,9 @@ function sleep(){
 }
 
 var betChips = 0;
+var preBet = 0;
 var bet = 0;
-var wait = 400;
-var result = "..."
-var action = "Place your bet!"
+var result = "Place your bet!"
 
 var chips = 100;
 var totalPlayer = 0;
@@ -100,7 +105,24 @@ function betChipsClick(e){
         return;
     }
 
-    bet += betChips;
+    preBet += betChips;
+    
+    if (preBet > chips){
+        preBet = chips
+    }
+
+    stack = document.createElement("img");
+    stack.src = "./Sprites/5 Stack.png";
+    stack.className = "stack"
+    document.getElementById("stackChips").appendChild(stack);
+
+    show();
+}
+
+// Reset bet
+function betChipsReset(e){
+
+    preBet = 0;
     show();
 }
 
@@ -108,15 +130,15 @@ function betChipsClick(e){
 // Blackjack
 function betCheck() {
 
-    if (bet === 0){
+    if (preBet === 0){
         window.alert("Please put a bet amount");
     }
-    else if (bet > chips){
+    else if (preBet > chips){
         window.alert("You don't have enough chips!");
-        bet = 0;
-        show();
+        betChipsReset()
     }
     else{
+        bet = preBet;
         startGame();
     }
 }
@@ -126,12 +148,9 @@ function betCheck() {
 async function startGame(){
     btnBet.disabled = true;
     betAmount.disabled = true;
-    btnStand.disabled = false;
-    btnHit.disabled = false;
-    btnDouble.disabled = false;
 
-    action = "No more bets";
-    result = "...";
+    result = "No more bets";
+    action = "...";
     chips -= bet;
 
     show();
@@ -144,11 +163,17 @@ async function startGame(){
     await drawCardDealer();
     await drawCardPlayer();
 
+    btnStand.disabled = false;
+    btnHit.disabled = false;
+    btnDouble.disabled = false;
+    document.getElementById("result").style.display = "none";
+
     if (totalPlayer == 21){
         playerBj = true;
         btnHit.disabled = true;
         btnDouble.disabled = true;
         result = "Blackjack!"
+        document.getElementById("result").style.display = "block";
         show();
     }   
 }
@@ -172,7 +197,8 @@ async function drawCardPlayer() {
     i = Math.floor(Math.random()*4); // Color random
 
     image = document.createElement("img"); // Cards show
-    image.src = "./Small/"+color[i]+" "+cardId[x]+".png";
+    image.src = "./Sprites/Cards/"+color[i]+" "+cardId[x]+".png";
+    image.className="cards";
     document.getElementById("playerCards").appendChild(image);
 
     show();
@@ -199,7 +225,8 @@ async function drawCardDealer() {
     i = Math.floor(Math.random()*4); // Color random
 
     image = document.createElement("img"); // Cards show
-    image.src = "./Small/"+color[i]+" "+cardId[x]+".png";
+    image.src = "./Sprites/Cards/"+color[i]+" "+cardId[x]+".png";
+    image.className="cards";
     document.getElementById("dealerCards").appendChild(image);
 
     show();
@@ -207,21 +234,29 @@ async function drawCardDealer() {
 }
 
 
-function hit() {
+async function hit() {
     action = "Hit"
     drawCardPlayer();
     // show();
     btnDouble.disabled = true;
     if (totalPlayer > 21){
         result = "Too many";
+        document.getElementById("result").style.display = "block";
         show();
+        await sleep(2000);
         reset();
+        show();
     } 
 }
 
 
 async function stand(){
+    document.getElementById("result").style.display = "none";
     action = "Stand"
+    btnHit.disabled = true;
+    btnDouble.disabled = true;
+    btnStand.disabled = true;
+
     while (totalDealer < 17){
         await drawCardDealer();
     }
@@ -235,14 +270,17 @@ async function stand(){
         result = "You won! : "+bet+" chips.";
 
     } else if (totalDealer > totalPlayer){
-        result = "You lost";
+        result = "You lost : "+bet+" chips.";
 
     } else {
         result = "Draw";
         chips += bet;
     }
+    document.getElementById("result").style.display = "block";
     show();
+    await sleep(2000);
     reset();
+    show();
 }
 
 
@@ -277,7 +315,7 @@ function show() {
     }
     document.getElementById("chips").innerHTML = chips;
     document.getElementById("totalDealer").innerHTML = totalDealer;
-    document.getElementById("betAmount").innerHTML = bet;
+    document.getElementById("betAmount").innerHTML = preBet;
     document.getElementById("result").innerHTML = result;
     document.getElementById("action").innerHTML = action;
     
@@ -295,9 +333,11 @@ function reset(){
     playerAce =0;
     playerBj = false;
     dealerBj = false;
+    result = "Place your bet!";
+    drawCards();
     if (deck.length < cards.length*2){
         deck = cards.concat(cards).concat(cards).concat(cards);
-        action = 'Reshuffling';
+        result = 'Reshuffling';
     }
 }
 
@@ -307,12 +347,14 @@ function drawCards(){
 
     document.getElementById("dealerCards").innerHTML = "";
     image = document.createElement("img"); // Cards show
-    image.src = "./Small/Back Grey 1.png";
+    image.className="cards";
+    image.src = "./Sprites/Cards/Back Grey 1.png";
     document.getElementById("dealerCards").appendChild(image);
     
     document.getElementById("playerCards").innerHTML = "";
     image = document.createElement("img"); // Cards show
-    image.src = "./Small/Back Grey 1.png";
+    image.className="cards";
+    image.src = "./Sprites/Cards/Back Grey 1.png";
     document.getElementById("playerCards").appendChild(image);
 }
 
@@ -326,10 +368,13 @@ function dealer(a){
 
 async function dealerAnimation(){
     dealer("Draw");
-    await sleep();
+    await sleep(400);
     dealer("Idle");
-    await sleep();
+    await sleep(400);
 }
+
+// Animation banner
+
 
 // Import
 // click chips to bet

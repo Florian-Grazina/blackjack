@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'pixel';
+    src: url('./Fonts/I-pixel-u.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    background-color: rgb(15, 56, 15);
+    min-width: 1000px;
+
+}
+
+.numberPixel{
+    font-family:'pixel';
+    font-size: 3em;
+    margin: 0% 0% 1.5% 0%;
+    text-align: center;
+}
+
+/* <!-- Dealer --> */
+
+#dealer{
+    visibility: hidden;
+}
+
+#totalDealer{
+    font-size: 3em;
+}
+
+#dealerCards{
+    display: flex;
+    justify-content: center;
+    min-height: 240px;
+    width: 40%;
+}
+
+#dealerBoard{
+    display:flex;
+}
+
+#stackChips{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 30%;
+    min-width: 320px;
+}
+
+.stack{
+    width: 5%;
+}
+
+#useless{
+    min-width: 30%;
+    min-width: 320px;
+}
+
+
+/* <!-- Player --> */
+
+#chipsSide{
+    width: 30%;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#player{
+    width: 100%;
+    margin: auto;
+    word-wrap: break-word;
+}
+
+#playerBoard{
+    display: flex;
+}
+
+.cards{
+    width: 11em;
+}
+
+#playerCards{
+    display: flex;
+    justify-content: center;
+    min-height: 312.98;
+}
+
+#betAmount{
+    margin: 10px 10px 10px 10px;
+    font-size: 2.5em;
+}
+
+/* <!-- Button --> */
+
+.btnChips{
+    width: 4.5em; 
+}
+
+.btnPlayer{
+    width: 12em ;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#btnPlayer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30%;
+    min-width: 320px;
+}
+
+/* <!-- Action / Result --> */
+
+#result{
+    font-family: "pixel";
+    text-transform: uppercase;
+    position:absolute;
+    font-size: 8vh;
+    bottom: 3.7em;
+    text-align: center;
+    align-items: center;
+    word-wrap: normal;
+
+    width: 98.5%;
+    background-color: rgba(128, 123, 106, 0.637);
+}

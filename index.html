@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Blackjack de batard</title>
+</head>
+<body>
+    
+        <!-- Dealer -->
+    <div> 
+        <img id="dealer">
+        <p id="totalDealer" class="numberPixel"></p>
+
+            <!-- Dealer board-->
+        <div id="dealerBoard">
+            <div id="stackChips"></div>
+            <div id="dealerCards"></div>
+            <div id="useless"></div>
+        </div>
+    </div>
+
+        <!-- Text -->
+        <div id="text">
+            <p id="action"></p>
+            <p id="result"></p>
+        </div>
+        
+        <!-- PlayerBoard -->
+    <div id="playerBoard">
+
+        <!-- Chips -->
+        <div id="chipsSide">
+            <div id="btnChips">
+                <input type="image" src="./Sprites/5.png" class="btnChips" value="5">
+                <input type="image" src="./Sprites/10.png" class="btnChips" value="10">
+                <input type="image" src="./Sprites/20.png" class="btnChips" value="20">
+                <input type="image" src="./Sprites/50.png" class="btnChips" value="50">
+                <input type="image" src="./Sprites/reset.png" class="btnChips" id="btnReset">
+            </div>
+        
+            <div>
+                <p id="betAmount" class="numberPixel"></p>
+                <input type="image" src="./Sprites/Bet.png"  class="btnPlayer" id="bet">
+                <p id="chips" class="numberPixel"></p>
+            </div>
+        </div>
+    
+        <!-- Player -->
+        <div id="player">
+            <p id="totalPlayer" class="numberPixel"></p>
+            <div id="playerCards"></div>
+        </div>
+
+        
+        <!-- Player choise -->
+        <div id="btnPlayer">
+            <input type="image" src="./Sprites/Hit.png" class="btnPlayer" id="btnHit">
+            <input type="image" src="./Sprites/Stand.png" class="btnPlayer" id="btnStand">
+            <input type="image" src="./Sprites/Double.png" class="btnPlayer" id="btnDouble">
+        </div>
+    </div>
+
+</body>
+
+<script src="blackjack.js"></script>
+
+</html>
