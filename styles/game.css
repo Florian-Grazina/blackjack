@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'pixel';
-    src: url('./Fonts/I-pixel-u.ttf');
+    src: url('../Fonts/I-pixel-u.ttf');
     font-weight: normal;
     font-style: normal;
 }
@@ -68,7 +68,7 @@ ul{
 }
 
 #totalChips{
-    background-image: url(./Sprites/total.png);
+    background-image: url(../sprites/total.png);
     background-size:cover;
     background-repeat: no-repeat;
     background-size: 19em;
@@ -187,7 +187,7 @@ ul{
     text-transform: uppercase;
     position:absolute;
     font-size: 8vh;
-    bottom: 3.64em;
+    bottom: 3.7em;
     text-align: center;
     align-items: center;
     white-space: nowrap;
