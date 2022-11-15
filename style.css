@@ -7,109 +7,176 @@
 
 body{
     background-color: rgb(15, 56, 15);
-    min-width: 1000px;
-
+    min-width: 940px;
 }
 
 .numberPixel{
     font-family:'pixel';
     font-size: 3em;
-    margin: 0% 0% 1.5% 0%;
+    margin: 0% 0% 0% 0%;
     text-align: center;
+    font-weight: bold;
+}
+
+/* <!-- Class placement --!> */
+.side{
+    width: 25%;
+    min-width: 360px;
+    align-self: stretch;
+}
+
+.middle{
+    width: 50%;
+    min-width: 120px;
+}
+
+.cards{
+    max-width: 150px;
+}
+
+.button{
+    width: 150px;
+    margin-bottom: 27px;
+}
+
+.buttonGray{
+    width: 150px;
+    margin-bottom: 27px;
+    filter: grayscale(90%);
+}
+
+/* <!-- Rules & Sprites --> */
+#header{
+    display: flex;
+}
+
+#rules{
+    font-family: pixel;
+    font-size: 1.6em;
+}
+
+#middleHeader{
+    text-align: center;
+    height: 320px;
+}
+
+#dealerSprite{
+    width: 13.5em;
+}
+
+#totalChips{
+    background-image: url(./Sprites/total.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-size: 19em;
+    background-position: center;
+    padding-bottom: 7em;
+    margin-bottom: -7em;
+    margin: auto;
+}
+
+#totalChips p{
+    font-weight:bold;
+    position: relative;
+    top: 1.5em;
+    
 }
 
 /* <!-- Dealer --> */
 
-#dealer{
-    visibility: hidden;
+#top{
+    display:flex;
+    justify-content: space-between;
+}
+
+#stackChips{
+    display: flex;
+    justify-content: center;
+    width: 25%;
+    min-width: 360px;
+    padding-bottom: 3em;
+    position: relative;
+    bottom: 8.5em;
+}
+
+#stackChips>div{
+    display: flex;
+    flex-direction: column-reverse;
+    width: 25px;
+    min-height: 100%;
+    max-width: 216px;
+}
+
+.stack{
+    width: 150%;
+}
+
+#betAmount{
+    align-items: center;
+    font-size: 2.5em;
+    position: absolute;
+    padding-left: 5px;
+}
+
+#dealerCards{
+    display: flex;
+    justify-content: center;
+    min-height: 204.5px;
+    padding-right: 16px;
 }
 
 #totalDealer{
     font-size: 3em;
 }
 
-#dealerCards{
-    display: flex;
-    justify-content: center;
-    min-height: 240px;
-    width: 40%;
-}
-
-#dealerBoard{
-    display:flex;
-}
-
-#stackChips{
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-    width: 30%;
-    min-width: 320px;
-}
-
-.stack{
-    width: 5%;
-}
-
-#useless{
-    min-width: 30%;
-    min-width: 320px;
-}
-
 
 /* <!-- Player --> */
 
+#playerBoard{
+    display: flex;
+    justify-content: space-between;
+}
+
 #chipsSide{
-    width: 30%;
-    min-width: 320px;
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#player{
-    width: 100%;
-    margin: auto;
-    word-wrap: break-word;
+#btnChips{
+    position: relative;
+    z-index: 2;
+    margin-bottom: 35px;
+    text-align: center;
 }
 
-#playerBoard{
+.btnChips{
+    width: 13%;
+}
+
+#bet{
     display: flex;
-}
-
-.cards{
-    width: 11em;
+    flex-direction: column;
+    align-items: center;
 }
 
 #playerCards{
+    padding-top: 10px;
     display: flex;
     justify-content: center;
-    min-height: 312.98;
-}
-
-#betAmount{
-    margin: 10px 10px 10px 10px;
-    font-size: 2.5em;
-}
-
-/* <!-- Button --> */
-
-.btnChips{
-    width: 4.5em; 
-}
-
-.btnPlayer{
-    width: 12em ;
-    margin-left: 1em;
-    margin-right: 1em;
+    min-height: 204.5px;
+    padding-right: 16px;
 }
 
 #btnPlayer{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    width: 30%;
-    min-width: 320px;
+    justify-content: flex-start;
+    align-items: center;
+    width: 25%;
+    min-width: 360px;
 }
 
 /* <!-- Action / Result --> */
@@ -119,11 +186,15 @@ body{
     text-transform: uppercase;
     position:absolute;
     font-size: 8vh;
-    bottom: 3.7em;
+    bottom: 4.8em;
     text-align: center;
     align-items: center;
-    word-wrap: normal;
+    white-space: nowrap;
+    min-width: 470px;
+    width: 99.5%;
+    background-color: rgba(128, 123, 106, 0.76);
+}
 
-    width: 98.5%;
-    background-color: rgba(128, 123, 106, 0.637);
+#action{
+    visibility: hidden;
 }
