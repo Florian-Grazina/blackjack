@@ -6,7 +6,7 @@
 }
 
 body{
-    background-color: rgb(15, 56, 15);
+    background-color: rgb(19, 59, 19);
     min-width: 940px;
 }
 
@@ -35,13 +35,11 @@ body{
 }
 
 .button{
-    width: 150px;
-    margin-bottom: 27px;
+    width: 170px;
 }
 
 .buttonGray{
-    width: 150px;
-    margin-bottom: 27px;
+    width: 170px;
     filter: grayscale(90%);
 }
 
@@ -52,7 +50,12 @@ body{
 
 #rules{
     font-family: pixel;
-    font-size: 1.6em;
+    font-size: 2.3em;
+}
+
+ul{
+    margin-left: 30px;
+    list-style: square;
 }
 
 #middleHeader{
@@ -163,7 +166,6 @@ body{
 }
 
 #playerCards{
-    padding-top: 10px;
     display: flex;
     justify-content: center;
     min-height: 204.5px;
@@ -173,10 +175,9 @@ body{
 #btnPlayer{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    width: 25%;
-    min-width: 360px;
+    min-height: 280px;
 }
 
 /* <!-- Action / Result --> */
@@ -186,12 +187,13 @@ body{
     text-transform: uppercase;
     position:absolute;
     font-size: 8vh;
-    bottom: 4.8em;
+    bottom: 3.64em;
     text-align: center;
     align-items: center;
     white-space: nowrap;
     min-width: 470px;
-    width: 99.5%;
+    width: 100%;
+    right: 1px;
     background-color: rgba(128, 123, 106, 0.76);
 }
 

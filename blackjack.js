@@ -332,7 +332,6 @@ function show() {
     document.getElementById("totalDealer").innerHTML = totalDealer;
     document.getElementById("betAmount").innerHTML = preBet;
     document.getElementById("result").innerHTML = result;
-    document.getElementById("action").innerHTML = action;
     
 }
 
@@ -403,6 +402,7 @@ function btnEnable(btn){
 }
 
 //Functions
+//Always data
 //Import
 //Sprite button disable
 //stack
