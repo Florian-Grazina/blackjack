@@ -1,0 +1,94 @@
+@font-face {
+    font-family: 'pixel';
+    src: url('../Fonts/I-pixel-u.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: pixel;
+}
+
+body{
+    margin-left: 90px;
+    margin-right: 90px;
+    background-color: rgb(16, 36, 16);
+}
+
+#container{
+    background-color: aliceblue;
+}
+
+
+/* ---------------- */
+/* -----Header----- */
+/* ---------------- */
+
+header{
+    display: flex;
+    position: relative;
+    margin-top: -8px;
+}
+
+#background{
+    width: 100%;
+    height: 200px;
+    /* height: 950px; */
+    background-image: url(../Sprites/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom;
+    filter: grayscale(80%) blur(1px);
+}
+
+h1{
+    font-size: 9em;
+    position: absolute;
+    justify-self: center;
+    align-self: center;
+    width: 100%;
+    border: 5px solid rgb(0, 0, 0);
+    right: -5px;
+    text-align: center;
+    background-color: rgba(221, 221, 221, 0.404);
+}
+
+
+/* ---------------- */
+/* -----Nav-------- */
+/* ---------------- */
+
+nav{
+    position: sticky;
+    top: 0px;
+    height: 10px;
+    background-color: black;
+    border: solid aliceblue 10px;
+    margin-bottom: 100px;
+}
+
+nav ul{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    list-style: none;
+    margin-top: 0px;
+    padding-right: 20px;
+}
+
+ul a{
+    text-decoration: none;
+    color: aliceblue;
+    background-color: black;
+    border: solid 2px aliceblue; 
+    font-size: 1.1em;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.active , ul a:hover{
+    background-color: rgb(19, 59, 19);
+    font-size: 1.5em;
+    border: solid 3px rgb(0, 0, 0); 
+}

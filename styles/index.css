@@ -1,0 +1,103 @@
+
+/* ---------------- */
+/* -----Section---- */
+/* ---------------- */
+
+section{
+    display: flex;
+    text-transform: uppercase;
+    text-align: justify;
+}
+
+/* Article */
+article{
+    width: 55%;
+    padding-right: 10%;
+    padding-left: 5%;
+    margin-bottom: 50px;
+    font-size: 1.3em;
+}
+
+/* Aside */
+aside{
+    width: 25%;
+    padding-right: 5%;
+}
+
+#aside{
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    width: 100%;
+
+}
+
+aside div{
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+aside img{
+    width: 50%;
+    max-width: 180px ;
+}
+
+aside p{
+    font-size: 0.9em;
+    clear: both;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ---------------- */
+/* -----Button----- */
+/* ---------------- */
+
+#menu_buttons{
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 100px;
+    margin-bottom: 100px;
+}
+
+#menu_buttons a{
+    text-decoration: none;
+    color: aliceblue;
+    font-size: 2.5em;
+    display: flex;
+    height: 250px;
+    width: 250px;
+    align-items: center;
+    border: solid 5px black;
+    background-color: rgb(19, 59, 19);
+}
+
+#menu_buttons a:hover{
+    box-shadow: 8px 8px;
+    color: black;
+    background-size: 170%;
+    font-size: 3em;
+}
+
+#game_menu{
+    background-image:url(../Sprites/bg_game.png);
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    background-size: 140%;
+    
+}
+
+#rules_menu{
+    background-image:url(../Sprites/bg_how.png);
+    background-position: 50% 70%;
+    background-repeat: no-repeat;
+    background-size: 130%;
+}
+
+#basic_menu{
+    background-image:url(../Sprites/bg_basic.png);
+    background-position: 50% 0%;
+    background-repeat: no-repeat;
+    background-size: 140%;
+}
