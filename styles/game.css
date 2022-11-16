@@ -10,7 +10,7 @@ body{
     min-width: 940px;
 }
 
-.numberPixel{
+.number_pixel{
     font-family:'pixel';
     font-size: 3em;
     margin: 0% 0% 0% 0%;
@@ -38,7 +38,7 @@ body{
     width: 170px;
 }
 
-.buttonGray{
+.button_gray{
     width: 170px;
     filter: grayscale(90%);
 }
@@ -58,16 +58,16 @@ ul{
     list-style: square;
 }
 
-#middleHeader{
+#middle_header{
     text-align: center;
     height: 320px;
 }
 
-#dealerSprite{
+#dealer_sprite{
     width: 13.5em;
 }
 
-#totalChips{
+#total_chips{
     background-image: url(../sprites/total.png);
     background-size:cover;
     background-repeat: no-repeat;
@@ -76,12 +76,28 @@ ul{
     padding-bottom: 7em;
     margin-bottom: -7em;
     margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 
-#totalChips p{
+#home{
+    text-decoration: none;
+    color: black;
+    background-color: rgb(32, 95, 32);
+    border: solid 3px black;
+    padding: 10px;
+    margin: auto;
+    font-size: 1.7em;
+}
+
+#home:hover{
+    background-color: rgb(61, 158, 61);
+    box-shadow: 8px 8px;
+}
+
+#total_chips p{
     font-weight:bold;
-    position: relative;
-    top: 1.5em;
+    margin-top: 100px;
     
 }
 
@@ -92,7 +108,7 @@ ul{
     justify-content: space-between;
 }
 
-#stackChips{
+#stack_chips{
     display: flex;
     justify-content: center;
     width: 25%;
@@ -102,7 +118,7 @@ ul{
     bottom: 8.5em;
 }
 
-#stackChips>div{
+#stack_chips>div{
     display: flex;
     flex-direction: column-reverse;
     width: 25px;
@@ -114,33 +130,33 @@ ul{
     width: 150%;
 }
 
-#betAmount{
+#bet_amount{
     align-items: center;
     font-size: 2.5em;
     position: absolute;
     padding-left: 5px;
 }
 
-#dealerCards{
+#dealer_cards{
     display: flex;
     justify-content: center;
     min-height: 204.5px;
     padding-right: 16px;
 }
 
-#totalDealer{
+#total_dealer{
     font-size: 3em;
 }
 
 
 /* <!-- Player --> */
 
-#playerBoard{
+#player_board{
     display: flex;
     justify-content: space-between;
 }
 
-#chipsSide{
+#chips_side{
     position: relative;
     z-index: 2;
     display: flex;
@@ -148,14 +164,14 @@ ul{
     align-items: center;
 }
 
-#btnChips{
+#btn_chips{
     position: relative;
     z-index: 2;
     margin-bottom: 35px;
     text-align: center;
 }
 
-.btnChips{
+.btn_chips{
     width: 13%;
 }
 
@@ -165,14 +181,14 @@ ul{
     align-items: center;
 }
 
-#playerCards{
+#player_cards{
     display: flex;
     justify-content: center;
     min-height: 204.5px;
     padding-right: 16px;
 }
 
-#btnPlayer{
+#btn_player{
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -30,21 +30,21 @@ var deck = cards.concat(cards).concat(cards).concat(cards)
 
 
 //  Pick up buttons in HTML
-var btnChips = document.getElementById("btnChips");
+var btnChips = document.getElementById("btn_chips");
 btnChips.addEventListener ("click", betChipsClick);
 
-var btnBet = document.getElementById("btnBet");
+var btnBet = document.getElementById("btn_bet");
 btnBet.addEventListener ("click", betCheck);
 
-var btnHit = document.getElementById("btnHit");
+var btnHit = document.getElementById("btn_hit");
 btnHit.addEventListener ("click", hit);
 btnDisable(btnHit);
 
-var btnStand = document.getElementById("btnStand");
+var btnStand = document.getElementById("btn_stand");
 btnStand.addEventListener ("click", stand);
 btnDisable(btnStand);
 
-var btnDouble = document.getElementById("btnDouble");
+var btnDouble = document.getElementById("btn_double");
 btnDouble.addEventListener ("click", double);
 btnDisable(btnDouble);
 
@@ -158,9 +158,9 @@ async function startGame(){
 
     drawCards();
 
-    document.getElementById("playerCards").innerHTML = "";
+    document.getElementById("player_cards").innerHTML = "";
     await drawCardPlayer();
-    document.getElementById("dealerCards").innerHTML = "";
+    document.getElementById("dealer_cards").innerHTML = "";
     await drawCardDealer();
     await drawCardPlayer();
 
@@ -203,10 +203,10 @@ async function drawCardPlayer() {
     image.src = "./Sprites/Cards/"+color[i]+" "+cardId[x]+".png";
     image.className="cards";
 
-    if (document.getElementById("playerCards").length == 0){
-        document.getElementById("playerCards") = image;
+    if (document.getElementById("player_cards").length == 0){
+        document.getElementById("player_cards") = image;
     } else{
-        document.getElementById("playerCards").appendChild(image);
+        document.getElementById("player_cards").appendChild(image);
     }
 
     show();
@@ -232,13 +232,13 @@ async function drawCardDealer() {
 
     i = Math.floor(Math.random()*4); // Color random
 
-    image = document.createElement("img"); // Cards show
+image = document.createElement("img"); // Cards show
     image.src = "./Sprites/Cards/"+color[i]+" "+cardId[x]+".png";
     image.className="cards";
-    if (document.getElementById("dealerCards").length == 0){
-        document.getElementById("dealerCards") = image;
+    if (document.getElementById("dealer_cards").length == 0){
+        document.getElementById("dealer_cards") = image;
     } else{
-        document.getElementById("dealerCards").appendChild(image);
+        document.getElementById("dealer_cards").appendChild(image);
     }
 
     show();
@@ -324,13 +324,13 @@ function double(){
 
 function show() {
     if (playerAce > 0){
-        document.getElementById("totalPlayer").innerHTML = totalPlayer + " (Soft)";
+        document.getElementById("total_player").innerHTML = totalPlayer + " (Soft)";
     } else {
-        document.getElementById("totalPlayer").innerHTML = totalPlayer;
+        document.getElementById("total_player").innerHTML = totalPlayer;
     }
     document.getElementById("chips").innerHTML = chips;
-    document.getElementById("totalDealer").innerHTML = totalDealer;
-    document.getElementById("betAmount").innerHTML = preBet;
+    document.getElementById("total_dealer").innerHTML = totalDealer;
+    document.getElementById("bet_amount").innerHTML = preBet;
     document.getElementById("result").innerHTML = result;
     
 }
@@ -360,27 +360,27 @@ function reset(){
 // Draw cards
 function drawCards(){
 
-    document.getElementById("dealerCards").innerHTML = "";
+    document.getElementById("dealer_cards").innerHTML = "";
     image = document.createElement("img"); // Cards show
     image.className="cards";
     image.src = "./Sprites/Cards/Back Grey 1.png";
     image.value = 0;
-    document.getElementById("dealerCards").appendChild(image);
+    document.getElementById("dealer_cards").appendChild(image);
     
-    document.getElementById("playerCards").innerHTML = "";
+    document.getElementById("player_cards").innerHTML = "";
     image = document.createElement("img"); // Cards show
     image.className="cards";
     image.src = "./Sprites/Cards/Back Grey 1.png";
     image.value = 0;
-    document.getElementById("playerCards").appendChild(image);
+    document.getElementById("player_cards").appendChild(image);
 }
 
 
 //Draw dealer
 function dealer(a){
-    var dealer = document.getElementById("dealerSprite");
+    var dealer = document.getElementById("dealer_sprite");
     dealer.src = "./Sprites/"+a+".png";
-    document.getElementById("dealerSprite").innerHTML = dealerSprite;
+    document.getElementById("dealer_sprite").innerHTML = dealer;
 }
 
 async function dealerAnimation(){
@@ -393,7 +393,7 @@ async function dealerAnimation(){
 //Style
 function btnDisable(btn){
     btn.disabled = true;
-    btn.className = "buttonGray";
+    btn.className = "button_gray";
 }
 
 function btnEnable(btn){
