@@ -1,0 +1,42 @@
+#background{
+    height: 250px;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+}
+
+table{
+    font-size: 2em;
+}
+
+td{
+    width: 50px;
+    border-bottom: 1px solid black;
+}
+
+td:first-child{
+    text-align: end;
+}
+
+td:not(:first-child){
+    border-left: 1px solid black;
+    text-align: center;
+}
+
+tfoot td{
+    border-bottom: 1px solid aliceblue;
+}
+
+.h{
+    background-color: rgba(165, 42, 42);
+}
+
+.s{
+    background-color: rgba(231, 231, 98);   
+}
+
+.d{
+    background-color: darkblue;
+}

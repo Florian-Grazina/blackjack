@@ -407,3 +407,4 @@ function btnEnable(btn){
 //Sprite button disable
 //stack
     //maximum stack,
+//too many, pas de "lost x chips"
