@@ -9,6 +9,8 @@ section{
 
 table{
     font-size: 2em;
+    margin-right: 35px;
+    margin-left: 35px;
 }
 
 td{
@@ -39,4 +41,17 @@ tfoot td{
 
 .d{
     background-color: darkblue;
+}
+
+#useless{
+    width: 10%;
+}
+
+aside{
+    width: 10%;
+    box-sizing: border-box;
+    margin-top: 100px;
+    margin-bottom: 200px;
+    background-color: aqua;
+    border: 3px solid black;
 }
