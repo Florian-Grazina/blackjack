@@ -1,7 +1,7 @@
 export const ButtonUtils = {
     btnDisable: (btn) => {
         btn.disabled = true;
-        btn.className = "buttonGray";
+        btn.className = "button_gray";
     },
     btnEnable: (btn) => {
         btn.disabled = false;

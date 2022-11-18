@@ -17,21 +17,21 @@ drawCards();
 show();
 
 //  Pick up buttons in HTML
-const btnChips = document.getElementById("btnChips");
+const btnChips = document.getElementById("btn_chips");
 btnChips.addEventListener ("click", betChipsClick);
 
-const btnBet = document.getElementById("btnBet");
+const btnBet = document.getElementById("btn_bet");
 btnBet.addEventListener ("click", betCheck);
 
-const btnHit = document.getElementById("btnHit");
+const btnHit = document.getElementById("btn_hit");
 btnHit.addEventListener ("click", hit);
 ButtonUtils.btnDisable(btnHit);
 
-const btnStand = document.getElementById("btnStand");
+const btnStand = document.getElementById("btn_stand");
 btnStand.addEventListener ("click", stand);
 ButtonUtils.btnDisable(btnStand);
 
-const btnDouble = document.getElementById("btnDouble");
+const btnDouble = document.getElementById("btn_double");
 btnDouble.addEventListener ("click", double);
 ButtonUtils.btnDisable(btnDouble);
 
@@ -130,7 +130,7 @@ async function startGame(){
 
     document.getElementById("result").style.display = "none";
 
-    if (totalPlayer === 21){
+    if (Player.getTotal() === 21){
         playerBj = true;
         ButtonUtils.btnDisable(btnHit);
         ButtonUtils.btnDisable(btnDouble);
@@ -218,16 +218,15 @@ async function double() {
     } else {
         chips -= bet;
         bet = bet * 2;
+        ButtonUtils.btnDisable(btnDouble);
+        ButtonUtils.btnDisable(btnHit);
         await drawCardPlayer();
         show();
-        ButtonUtils.btnDisable(btnDouble);
 
         if (Player.getTotal() > 21) {
             result = "Too many";
             reset();
         }
-        ButtonUtils.btnDisable(btnHit);
-        ButtonUtils.btnDisable(btnDouble);
     }
 }
 
@@ -236,10 +235,8 @@ function show() {
     const playerTotal = Player.getTotal();
     document.getElementById("total_player").innerHTML = Player.getAce() > 0 ? playerTotal + " (Soft)" : playerTotal;
     document.getElementById("chips").innerHTML = chips;
-    document.getElementById("total_dealer").innerHTML = totalDealer;
     document.getElementById("bet_amount").innerHTML = preBet;
     document.getElementById("total_dealer").innerHTML = Dealer.getTotal();
-    document.getElementById("bet_amount").innerHTML = preBet;
     document.getElementById("result").innerHTML = result;
 }
 
@@ -260,7 +257,7 @@ function reset(){
 // Draw cards
 function drawCards(){
 
-    document.getElementById("dealerCards").innerHTML = "";
+    document.getElementById("dealer_cards").innerHTML = "";
     let image = document.createElement("img"); // Cards show
     image.className="cards";
     image.src = Deck.greyCardPath;

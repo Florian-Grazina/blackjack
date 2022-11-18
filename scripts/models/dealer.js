@@ -7,9 +7,9 @@ let dealerAce = 0;
 let dealerBj = false;
 
 function drawFrame(a) {
-    let dealer = document.getElementById("dealerSprite");
+    let dealer = document.getElementById("dealer_sprite");
     dealer.src = "./Sprites/" + a + ".png";
-    document.getElementById("dealerSprite").innerHTML = dealerSprite;
+    document.getElementById("dealer_sprite").innerHTML = dealer;
 }
 
 async function playAnimation() {
@@ -36,10 +36,10 @@ export const Dealer = {
         let image = document.createElement("img"); // Cards show
         image.src = drawnCard.path;
         image.className = "cards";
-        if (document.getElementById("dealerCards").length === 0) {
-            document.getElementById("dealerCards") = image;
+        if (document.getElementById("dealer_cards").length === 0) {
+            document.getElementById("dealer_cards").innerHTML = image;
         } else {
-            document.getElementById("dealerCards").appendChild(image);
+            document.getElementById("dealer_cards").appendChild(image);
         }
     },
     playAnimation: () => playAnimation(),

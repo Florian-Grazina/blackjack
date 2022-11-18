@@ -21,10 +21,10 @@ export const Player = {
         image.src = drawnCard.path
         image.className="cards";
 
-        if (document.getElementById("playerCards").length === 0){
-            document.getElementById("playerCards") = image;
+        if (document.getElementById("player_cards").length === 0){
+            document.getElementById("player_cards").innerHTML(image);
         } else{
-            document.getElementById("playerCards").appendChild(image);
+            document.getElementById("player_cards").appendChild(image);
         }
     },
     getTotal: () => { return totalPlayer; },
