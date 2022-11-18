@@ -5,21 +5,21 @@ const cardName = ["Ace","Two", "Tree", "Four", "Five", "Six",
     "Seven","Eight","Nine","Ten","Jack","Queen","King"];
 
 const cards = cardId.concat(cardId).concat(cardId).concat(cardId);
-const deck = cards.concat(cards).concat(cards).concat(cards)
+let deck = cards.concat(cards).concat(cards).concat(cards);
 
 export const Deck = {
     drawCard: () => {
-        let card_index = Math.floor(Math.random()*deck.length);
-        deck.splice(card_index,1);
-        let x = deck[card_index] - 1;
-        let color_index = Math.floor(Math.random()*4);
+        let cardIndex = Math.floor(Math.random()*deck.length);
+        deck.splice(cardIndex,1);
+        let x = deck[cardIndex] - 1;
+        let colorIndex = Math.floor(Math.random()*4);
 
         return {
-            color: cardColor[color_index],
+            color: cardColor[colorIndex],
             value: cardValue[x],
             id: cardId[x],
             name: cardName[x],
-            path: "./Sprites/Cards/" + cardColor[color_index] + " " + cardId[x] + ".png"
+            path: "./Sprites/Cards/" + cardColor[colorIndex] + " " + cardId[x] + ".png"
         }
     },
     reset: () => {

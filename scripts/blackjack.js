@@ -120,7 +120,7 @@ async function startGame(){
     document.getElementById("playerCards").innerHTML = "";
     await drawCardPlayer();
     document.getElementById("dealerCards").innerHTML = "";
-    await Dealer.drawCard();
+    await drawCardDealer();
     show();
     await drawCardPlayer();
 
