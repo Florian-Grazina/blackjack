@@ -4,13 +4,15 @@ import { ButtonUtils } from "./utils/button-utils.js";
 import { Deck } from "./models/deck.js";
 import { Dealer } from "./models/dealer.js";
 import { Player } from "./models/player.js";
+import { Chips } from "./models/chips.js";
 
 let betChips = 0;
-let preBet = 0;
 let bet = 0;
+let chips = 200;
 let result = "Place your bet!"
+let noMoreBets = false;
+let waitTime = 200;
 
-let chips = 1000;
 
 Dealer.drawIdleFrame();
 drawCards();
@@ -63,29 +65,35 @@ function betChipsClick(e){
     }
 
     if (betChips === 0){         //le bouton reset a une valeur 0
-        preBet = 0;
+        bet = 0;
         for (let i = 0; i < 4; i++){
             document.getElementById("stack"+i).innerHTML="";
         }
     }
-    else{     //Si on appuye sur un bouton autre que reset
-        if (preBet === chips){    //Si le joueur à déja la mise maxi
-            return
-        }
-        else if (preBet+betChips > chips){     //Si le joueur veut trop miser
-            preBet = chips;
-        } 
-        else{
-            preBet += betChips;
-        }
 
-        let i = Math.floor(Math.random()*4)
-        let image = document.createElement("img");
-        image.src = "./Sprites/"+betChips+" Stack.png";
-        image.className = "stack";
-        document.getElementById("stack"+i).appendChild(image);
+    else{
+        if (noMoreBets){        //Jeu en cours, bet bloqué
+            return;
+        }
+    
+        else{     //Si on appuye sur un bouton autre que reset
+            if (bet === chips){    //Si le joueur à déja la mise maxi
+                return
+            }
+            else if (bet+betChips > chips){     //Si le joueur veut trop miser
+                bet = chips;
+            } 
+            else{
+                bet += betChips;
+            }
+    
+            let i = Math.floor(Math.random()*4)
+            let image = document.createElement("img");
+            image.src = "../Sprites/"+betChips+" Stack.png";
+            image.className = "stack";
+            document.getElementById("stack"+i).appendChild(image);
+        }
     }
-
     show();
 }
 
@@ -93,14 +101,15 @@ function betChipsClick(e){
 // Blackjacktoo m
 function betCheck() {
 
-    if (preBet === 0){
+    if (bet === 0){
         window.alert("Please put a bet amount");
     }
-    else if (preBet > chips){
-        window.alert("You don't have enough chips!");
+
+    else if (bet > chips){
+        window.alert("You don't have enough chips!")
     }
+
     else{
-        bet = preBet;
         startGame();
     }
 }
@@ -109,6 +118,7 @@ function betCheck() {
 // Start the game
 async function startGame(){
     ButtonUtils.btnDisable(btnBet);
+    noMoreBets = true;
 
     result = "No more bets";
     chips -= bet;
@@ -130,8 +140,7 @@ async function startGame(){
 
     document.getElementById("result").style.display = "none";
 
-    if (Player.getTotal() === 21){
-        playerBj = true;
+    if (Player.hasBlackJack()){
         ButtonUtils.btnDisable(btnHit);
         ButtonUtils.btnDisable(btnDouble);
         result = "Blackjack!"
@@ -166,7 +175,10 @@ async function hit() {
         await Dealer.playAnimation();
         document.getElementById("result").style.display = "block";
         show();
-        await TimeUtils.sleep(2000);
+        await TimeUtils.sleep(waitTime);
+        result = "You lost : " + bet + " chips.";
+        show();
+        await TimeUtils.sleep(waitTime);
         reset();
         show();
     } else {
@@ -206,7 +218,7 @@ async function stand(){
     }
     document.getElementById("result").style.display = "block";
     show();
-    await TimeUtils.sleep(2000);
+    await TimeUtils.sleep(waitTime*2);
     reset();
     show();
 }
@@ -233,10 +245,11 @@ async function double() {
 
 function show() {
     const playerTotal = Player.getTotal();
+    const dealerTotal = Dealer.getTotal();
     document.getElementById("total_player").innerHTML = Player.getAce() > 0 ? playerTotal + " (Soft)" : playerTotal;
     document.getElementById("chips").innerHTML = chips;
-    document.getElementById("bet_amount").innerHTML = preBet;
-    document.getElementById("total_dealer").innerHTML = Dealer.getTotal();
+    document.getElementById("bet_amount").innerHTML = bet;
+    document.getElementById("total_dealer").innerHTML = Dealer.getAce() > 0 ? dealerTotal + " (Soft)" : dealerTotal ;
     document.getElementById("result").innerHTML = result;
 }
 
@@ -246,6 +259,7 @@ function reset(){
     ButtonUtils.btnDisable(btnStand);
     ButtonUtils.btnDisable(btnHit);
     ButtonUtils.btnDisable(btnDouble);
+    noMoreBets = false;
     result = "Place your bet!";
     drawCards();
     Deck.reset();
@@ -275,7 +289,4 @@ function drawCards(){
 //Functions
 //Always data
 //Import
-//Sprite button disable
-//stack
-    //maximum stack,
-//too many, pas de "lost x chips"
+// Speed slider

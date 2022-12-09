@@ -9,7 +9,7 @@ let deck = cards.concat(cards).concat(cards).concat(cards);
 
 export const Deck = {
     drawCard: () => {
-        let cardIndex = Math.floor(Math.random()*deck.length);
+        let cardIndex = Math.floor(Math.random()*deck.length-1);
         deck.splice(cardIndex,1);
         let x = deck[cardIndex] - 1;
         let colorIndex = Math.floor(Math.random()*4);
@@ -19,7 +19,7 @@ export const Deck = {
             value: cardValue[x],
             id: cardId[x],
             name: cardName[x],
-            path: "./Sprites/Cards/" + cardColor[colorIndex] + " " + cardId[x] + ".png"
+            path: "../Sprites/Cards/" + cardColor[colorIndex] + " " + cardId[x] + ".png"
         }
     },
     reset: () => {
@@ -27,5 +27,5 @@ export const Deck = {
             deck = cards.concat(cards).concat(cards).concat(cards);
         }
     },
-    greyCardPath: "./Sprites/Cards/Back Grey 1.png"
+    greyCardPath: "../Sprites/Cards/Back Grey 1.png"
 }
