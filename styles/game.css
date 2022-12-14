@@ -101,6 +101,17 @@ ul{
     
 }
 
+#game_speed_container{
+    margin: auto;
+    width: 150px;
+}
+
+#game_speed{
+    width: 100%;
+    appearance: none;
+    background-color: gray;
+}
+
 /* <!-- Dealer --> */
 
 #top{

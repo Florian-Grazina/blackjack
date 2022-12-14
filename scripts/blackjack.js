@@ -11,7 +11,7 @@ let bet = 0;
 let chips = 200;
 let result = "Place your bet!"
 let noMoreBets = false;
-let waitTime = 200;
+let waitTime = 800;
 
 
 Dealer.drawIdleFrame();
@@ -19,21 +19,21 @@ drawCards();
 show();
 
 //  Pick up buttons in HTML
-const btnChips = document.getElementById("btn_chips");
-btnChips.addEventListener ("click", betChipsClick);
+const btnChips = document.querySelector("#btn_chips");
+btnChips.addEventListener ("click", Chips.betChipsClick);
 
-const btnBet = document.getElementById("btn_bet");
+const btnBet = document.querySelector("#btn_bet");
 btnBet.addEventListener ("click", betCheck);
 
-const btnHit = document.getElementById("btn_hit");
+const btnHit = document.querySelector("#btn_hit");
 btnHit.addEventListener ("click", hit);
 ButtonUtils.btnDisable(btnHit);
 
-const btnStand = document.getElementById("btn_stand");
+const btnStand = document.querySelector("#btn_stand");
 btnStand.addEventListener ("click", stand);
 ButtonUtils.btnDisable(btnStand);
 
-const btnDouble = document.getElementById("btn_double");
+const btnDouble = document.querySelector("#btn_double");
 btnDouble.addEventListener ("click", double);
 ButtonUtils.btnDisable(btnDouble);
 
@@ -56,46 +56,46 @@ document.onkeydown = function(e){
     }
 }
 
-// Click bet
-function betChipsClick(e){
-    betChips = Number(e.target.value);
+// // Click bet
+// function betChipsClick(e){
+//     betChips = Number(e.target.value);
     
-    if (isNaN(betChips)){    //Si on appuye à coté des boutons
-        return;
-    }
+//     if (isNaN(betChips)){    //Si on appuye à coté des boutons
+//         return;
+//     }
 
-    if (betChips === 0){         //le bouton reset a une valeur 0
-        bet = 0;
-        for (let i = 0; i < 4; i++){
-            document.getElementById("stack"+i).innerHTML="";
-        }
-    }
+//     if (betChips === 0){         //le bouton reset a une valeur 0
+//         bet = 0;
+//         for (let i = 0; i < 4; i++){
+//             document.querySelector("#stack"+i).innerHTML="";
+//         }
+//     }
 
-    else{
-        if (noMoreBets){        //Jeu en cours, bet bloqué
-            return;
-        }
+//     else{
+//         if (noMoreBets){        //Jeu en cours, bet bloqué
+//             return;
+//         }
     
-        else{     //Si on appuye sur un bouton autre que reset
-            if (bet === chips){    //Si le joueur à déja la mise maxi
-                return
-            }
-            else if (bet+betChips > chips){     //Si le joueur veut trop miser
-                bet = chips;
-            } 
-            else{
-                bet += betChips;
-            }
+//         else{     //Si on appuye sur un bouton autre que reset
+//             if (bet === chips){    //Si le joueur à déja la mise maxi
+//                 return
+//             }
+//             else if (bet+betChips > chips){     //Si le joueur veut trop miser
+//                 bet = chips;
+//             } 
+//             else{
+//                 bet += betChips;
+//             }
     
-            let i = Math.floor(Math.random()*4)
-            let image = document.createElement("img");
-            image.src = "../Sprites/"+betChips+" Stack.png";
-            image.className = "stack";
-            document.getElementById("stack"+i).appendChild(image);
-        }
-    }
-    show();
-}
+//             let i = Math.floor(Math.random()*4)
+//             let image = document.createElement("img");
+//             image.src = "../Sprites/"+betChips+" Stack.png";
+//             image.className = "stack";
+//             document.querySelector("#stack"+i).appendChild(image);
+//         }
+//     }
+//     show();
+// }
 
 
 // Blackjacktoo m
@@ -127,9 +127,9 @@ async function startGame(){
 
     drawCards();
 
-    document.getElementById("player_cards").innerHTML = "";
+    document.querySelector("#player_cards").innerHTML = "";
     await drawCardPlayer();
-    document.getElementById("dealer_cards").innerHTML = "";
+    document.querySelector("#dealer_cards").innerHTML = "";
     await drawCardDealer();
     show();
     await drawCardPlayer();
@@ -138,13 +138,13 @@ async function startGame(){
     ButtonUtils.btnEnable(btnHit);
     ButtonUtils.btnEnable(btnDouble)
 
-    document.getElementById("result").style.display = "none";
+    document.querySelector("#result").style.display = "none";
 
     if (Player.hasBlackJack()){
         ButtonUtils.btnDisable(btnHit);
         ButtonUtils.btnDisable(btnDouble);
         result = "Blackjack!"
-        document.getElementById("result").style.display = "block";
+        document.querySelector("#result").style.display = "block";
         show();
     }   
 }
@@ -173,7 +173,7 @@ async function hit() {
         ButtonUtils.btnDisable(btnDouble);
         ButtonUtils.btnDisable(btnStand);
         await Dealer.playAnimation();
-        document.getElementById("result").style.display = "block";
+        document.querySelector("#result").style.display = "block";
         show();
         await TimeUtils.sleep(waitTime);
         result = "You lost : " + bet + " chips.";
@@ -189,7 +189,7 @@ async function hit() {
 
 
 async function stand(){
-    document.getElementById("result").style.display = "none";
+    document.querySelector("#result").style.display = "none";
     ButtonUtils.btnDisable(btnHit);
     ButtonUtils.btnDisable(btnDouble);
     ButtonUtils.btnDisable(btnStand);
@@ -216,7 +216,7 @@ async function stand(){
         result = "Draw";
         chips += bet;
     }
-    document.getElementById("result").style.display = "block";
+    document.querySelector("#result").style.display = "block";
     show();
     await TimeUtils.sleep(waitTime*2);
     reset();
@@ -246,11 +246,11 @@ async function double() {
 function show() {
     const playerTotal = Player.getTotal();
     const dealerTotal = Dealer.getTotal();
-    document.getElementById("total_player").innerHTML = Player.getAce() > 0 ? playerTotal + " (Soft)" : playerTotal;
-    document.getElementById("chips").innerHTML = chips;
-    document.getElementById("bet_amount").innerHTML = bet;
-    document.getElementById("total_dealer").innerHTML = Dealer.getAce() > 0 ? dealerTotal + " (Soft)" : dealerTotal ;
-    document.getElementById("result").innerHTML = result;
+    document.querySelector("#total_player").innerHTML = Player.getAce() > 0 ? playerTotal + " (Soft)" : playerTotal;
+    document.querySelector("#chips").innerHTML = chips;
+    document.querySelector("#bet_amount").innerHTML = bet;
+    document.querySelector("#total_dealer").innerHTML = Dealer.getAce() > 0 ? dealerTotal + " (Soft)" : dealerTotal ;
+    document.querySelector("#result").innerHTML = result;
 }
 
 
@@ -271,22 +271,21 @@ function reset(){
 // Draw cards
 function drawCards(){
 
-    document.getElementById("dealer_cards").innerHTML = "";
+    document.querySelector("#dealer_cards").innerHTML = "";
     let image = document.createElement("img"); // Cards show
     image.className="cards";
     image.src = Deck.greyCardPath;
     image.value = 0;
-    document.getElementById("dealer_cards").appendChild(image);
+    document.querySelector("#dealer_cards").appendChild(image);
     
-    document.getElementById("player_cards").innerHTML = "";
+    document.querySelector("#player_cards").innerHTML = "";
     image = document.createElement("img"); // Cards show
     image.className="cards";
     image.src = Deck.greyCardPath;
     image.value = 0;
-    document.getElementById("player_cards").appendChild(image);
+    document.querySelector("#player_cards").appendChild(image);
 }
 
-//Functions
 //Always data
 //Import
 // Speed slider

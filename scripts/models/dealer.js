@@ -5,6 +5,8 @@ import { Deck } from "./deck.js";
 let totalDealer = 0;
 let dealerAce = 0;
 let dealerBj = false;
+let numberOfCards = 0;
+let gameSpeed;
 
 function drawFrame(a) {
     let dealer = document.getElementById("dealer_sprite");
@@ -13,10 +15,11 @@ function drawFrame(a) {
 }
 
 async function playAnimation() {
+    gameSpeed = Math.abs(document.querySelector("#game_speed").value)
     drawFrame("Draw");
-    await TimeUtils.sleep(50);
+    await TimeUtils.sleep(gameSpeed);
     drawFrame("Idle");
-    await TimeUtils.sleep(50);
+    await TimeUtils.sleep(gameSpeed);
 }
 
 export const Dealer = {
@@ -34,8 +37,8 @@ export const Dealer = {
             dealerAce--;
         }
 
-        if(numberOfCards == 2 && totalPlayer == 21){
-            playerBj = true;
+        if(numberOfCards == 2 && totalDealer == 21){
+            dealerBj = true;
         }
 
         let image = document.createElement("img"); // Cards show
