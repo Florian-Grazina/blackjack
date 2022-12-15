@@ -1,6 +1,7 @@
 {
   "name": "blackjack",
   "version": "1.0.0",
+  "type":"module",
   "description": "",
   "main": "blackjack.js",
   "scripts": {
@@ -14,5 +15,3 @@
     "vite": "^3.2.2"
   }
 }
-
-
