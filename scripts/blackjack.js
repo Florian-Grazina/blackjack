@@ -4,7 +4,7 @@ import { ButtonUtils } from "./utils/button-utils.js";
 import { Deck } from "./models/deck.js";
 import { Dealer } from "./models/dealer.js";
 import { Player } from "./models/player.js";
-import { Chips } from "./models/chips.js";
+// import { Chips } from "./models/chips.js";
 
 let betChips = 0;
 let bet = 0;
@@ -20,7 +20,7 @@ show();
 
 //  Pick up buttons in HTML
 const btnChips = document.querySelector("#btn_chips");
-btnChips.addEventListener ("click", Chips.betChipsClick);
+btnChips.addEventListener ("click", betChipsClick);
 
 const btnBet = document.querySelector("#btn_bet");
 btnBet.addEventListener ("click", betCheck);
@@ -56,46 +56,48 @@ document.onkeydown = function(e){
     }
 }
 
-// // Click bet
-// function betChipsClick(e){
-//     betChips = Number(e.target.value);
+// Click bet
+function betChipsClick(e){
+    betChips = Number(e.target.value);
     
-//     if (isNaN(betChips)){    //Si on appuye à coté des boutons
-//         return;
-//     }
+    if (isNaN(betChips)){    //Si on appuye à coté des boutons
+        return;
+    }
 
-//     if (betChips === 0){         //le bouton reset a une valeur 0
-//         bet = 0;
-//         for (let i = 0; i < 4; i++){
-//             document.querySelector("#stack"+i).innerHTML="";
-//         }
-//     }
+    
 
-//     else{
-//         if (noMoreBets){        //Jeu en cours, bet bloqué
-//             return;
-//         }
+    else{
+        if (noMoreBets){        //Jeu en cours, bet bloqué
+            return;
+        }
+        
+        if (betChips === 0){         //le bouton reset a une valeur 0
+            bet = 0;
+            for (let i = 0; i < 4; i++){
+                document.querySelector("#stack"+i).innerHTML="";
+            }
+        }
     
-//         else{     //Si on appuye sur un bouton autre que reset
-//             if (bet === chips){    //Si le joueur à déja la mise maxi
-//                 return
-//             }
-//             else if (bet+betChips > chips){     //Si le joueur veut trop miser
-//                 bet = chips;
-//             } 
-//             else{
-//                 bet += betChips;
-//             }
+        else{     //Si on appuye sur un bouton autre que reset
+            if (bet === chips){    //Si le joueur à déja la mise maxi
+                return
+            }
+            else if (bet+betChips > chips){     //Si le joueur veut trop miser
+                bet = chips;
+            } 
+            else{
+                bet += betChips;
+            }
     
-//             let i = Math.floor(Math.random()*4)
-//             let image = document.createElement("img");
-//             image.src = "../Sprites/"+betChips+" Stack.png";
-//             image.className = "stack";
-//             document.querySelector("#stack"+i).appendChild(image);
-//         }
-//     }
-//     show();
-// }
+            let i = Math.floor(Math.random()*4)
+            let image = document.createElement("img");
+            image.src = "../Sprites/"+betChips+" Stack.png";
+            image.className = "stack";
+            document.querySelector("#stack"+i).appendChild(image);
+        }
+    }
+    show();
+}
 
 
 // Blackjacktoo m

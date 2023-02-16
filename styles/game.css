@@ -74,7 +74,6 @@ ul{
     background-size: 19em;
     background-position: center;
     padding-bottom: 7em;
-    margin-bottom: -7em;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -98,12 +97,14 @@ ul{
 #total_chips p{
     font-weight:bold;
     margin-top: 100px;
-    
 }
 
 #game_speed_container{
     margin: auto;
     width: 150px;
+    font-family: pixel;
+    font-size: 2em;
+    margin-top: -3em;
 }
 
 #game_speed{
