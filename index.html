@@ -4,59 +4,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/index.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" href="./Sprites/10.png">
-    <title>Blackjack 2 Rue</title>
+    <link rel="stylesheet" href="../styles/game.css">
+    <title>Blackjack</title>
 </head>
 <body>
-    <header>
-        <div id="background"></div>
-        <h1>BLACKJACK 2 RUE</h1>
-    </header>
-    <div id="container">
-        <nav>
+    
+    <!-- Rules -->
+    <div id="header">
+        <div id="rules" class="side">
             <ul>
-                <li><a class="active home" href="./index.html">HOME</a></li>
-                <li><a class="home" href="./pages/game.html">GAME</a></li>
-                <!-- <li><a href="./pages/how_to_play.html">HOW TO PLAY</a></li> -->
-                <li><a href="./pages/basic_rules.html">BASIC RULES</a></li>
-                <li><a href="https://github.com/Florian-Grazina/Blackjack" target="_blank">SOURCE CODE</a></li>
+                SHORTCUTS :
+                <li>ENTER - START</li>
+                <li>H - HIT</li>
+                <li>S - STAND</li>
+                <li>D - DOUBLE</li>
             </ul>
-        </nav>
+        </div>
+
+        <div id="middle_header" class="middle">
+            <img id="dealer_sprite">
+        </div>
+
+        <div id="total_chips" class="side">
+            <a id="home" class="number_pixel" href="../index.html">HOME</a>
+            <p id="chips" class="number_pixel"></p>
+        </div>
+    </div>
+
+    <!-- Dealer -->
+    <div id="top">
         
-        <section id="story">
-            <article>
-                <p>
-                    L'origine du jeu est incertaine. Le premier jeu semblable au Blackjack moderne est le jeu du « trente et un », dont le but était d'obtenir 31 points. Ce jeu apparait au xive siècle1.
-                    <br><br>
-                    Le Blackjack moderne fait son apparition à la fin du xviie siècle ou du xviiie siècle sous le nom de « 21 » aux États-Unis. Pour essayer d’attirer les joueurs, les casinotiers inventent des bonus. Les joueurs ayant un As de pique et un valet noir gagnent un bonus qui offre alors un paiement de 10 contre 1. Le nom du jeu provient donc du « valet noir » de ce bonus soit « Black Jack » en anglais. On appelle encore ce jeu ainsi, bien que ce bonus ait été modifié2,3.
-                    <br><br>
-                    C'est à la fin du xxe siècle, que le jeu de cartes devient populaire auprès du grand public4. Les premières techniques statistiques font alors leurs apparition, et les casinos réagissent en modifiant légèrement le jeu pour conserver l'avantage sur le joueur.
-                    <br><br>
-                    Aujourd'hui, le jeu du Blackjack fait partie des jeux de casino les plus populaires5,6. 
-                </p>
-            </article>
-            <aside>
-                <div id="aside">
-                    <div>
-                        <img src="../Sprites/Cards/Spades 1.png" alt="">
-                        <img src="../Sprites/Cards/Hearts 13.png" alt="">
-                    </div>
-                    <p>
-                        Cette combinaison donne 21 points. <br><br>
-                        L'as donne 11 et le roi 10 points. <br><br>
-                        Pour avoir un Blackjack, il faut avoir 21 points avec seulement deux cartes. <br><br>
-                        Le 10, Valet, Reine et Roi donnent tous 10 points.
-                    </p>
-                </div>
-            </aside>
-        </section>
+        <!-- Stack Chips-->
+        <div id="stack_chips" class="side">
+            <div id="stack0"></div>
+            <div id="stack1"></div>
+            <div id="bet_amount" class="number_pixel"></div>
+            <div id="stack2"></div>
+            <div id="stack3"></div>
+        </div>
         
-        <section id="menu_buttons">
-            <a href="../pages/game.html" id="game_menu">GAME</a>
-            <a href="../pages/how_to_play.html" id="rules_menu">HOW TO PLAY</a>
-            <a href="../pages/basic_rules.html" id="basic_menu">BASIC RULES</a>
-        </section>
+        <!-- Dealer board -->
+        <div class="middle">
+            <p id="total_dealer" class="number_pixel"></p>
+            <div id="dealer_cards"></div>
+        </div>
+        
+        <!-- Useless -->
+        <div class="side">
+            <div id="game_speed_container">
+                <p>GAME SPEED</p>
+                <input type="range" min="-600" max="-100" value="-350" id="game_speed">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Text -->
+    <div id="text">
+        <p id="result"></p>
+    </div>
+        
+    <!-- PlayerBoard -->
+    <div id="player_board">
+
+        <!-- Chips -->
+        <div id="chips_side" class="side">
+            <div id="btn_chips">
+                <input type="image" src="../sprites/5.png" class="btn_chips" value="5">
+                <input type="image" src="../sprites/10.png" class="btn_chips" value="10">
+                <input type="image" src="../sprites/20.png" class="btn_chips" value="20">
+                <input type="image" src="../sprites/50.png" class="btn_chips" value="50">
+                <input type="image" src="../sprites/reset.png" class="btn_chips" id="btn_reset" value="0">
+            </div>
+        
+            <div id="bet">
+                <input type="image" src="../sprites/Bet.png" id="btn_bet" class="button">
+            </div>
+        </div>
+    
+        <!-- Player -->
+        <div id="player" class="middle">
+            <p id="total_player" class="number_pixel"></p>
+            <div id="player_cards"></div>
+        </div>
+
+        
+        <!-- Player choise -->
+        <div id="btn_player" class="side">
+            <input type="image" src="../sprites/Hit.png" class="button" id="btn_hit">
+            <input type="image" src="../sprites/Stand.png" class="button" id="btn_stand">
+            <input type="image" src="../sprites/Double.png" class="button" id="btn_double">
+        </div>
+    </div>
+
 </body>
+
+<script type="module" src="../scripts/blackjack.js"></script>
+
 </html>
