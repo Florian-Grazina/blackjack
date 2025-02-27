@@ -1,2 +1,2 @@
 # Blackjack
-Lunch in local server.
+Launch in local server.
